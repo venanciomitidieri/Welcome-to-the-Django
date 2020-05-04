@@ -36,8 +36,16 @@ def extract_names(filename):
     followed by the name-rank strings in alphabetical order.
     ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
     """
+    html = open(filename, 'r').read()
+    year = re.search(r'<h3.*([\d]{4}).*/h3>', html).group(1)
+    rank = []
 
-    return
+    names = re.findall(r'<td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', html)
+    for item in names:
+        rank.append(item[1] + ' ' + item[0])
+        rank.append(item[2] + ' ' + item[0])
+
+    return [year] + sorted(rank)
 
 
 def main():
@@ -55,10 +63,17 @@ def main():
     if args[0] == '--summaryfile':
         summary = True
         del args[0]
+        summaryfile = open('summary.txt', 'w')
 
         # +++your code here+++
         # For each filename, get the names, then either print the text output
         # or write it to a summary file
+
+        for file in args:
+            summaryfile.write("\n".join(extract_names(file)) + "\n")
+    else:
+        for file in args:
+            print(extract_names(file))
 
 
 if __name__ == '__main__':

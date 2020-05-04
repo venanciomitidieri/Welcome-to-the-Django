@@ -37,14 +37,14 @@ print_words() and print_top().
 
 """
 
-import sys
-
-
-# +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
+
+
+import sys
+
 
 def get_content(filename):
     words = dict

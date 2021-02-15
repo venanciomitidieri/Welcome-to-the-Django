@@ -20,5 +20,5 @@ from eventex.core.views import home
 
 urlpatterns = [
     url(r'^$', home),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 ]

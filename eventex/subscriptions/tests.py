@@ -37,11 +37,13 @@ class SubscribeTest(TestCase):
         form = self.resp.context['form']
         self.assertSequenceEqual(['name', 'cpf', 'email', 'phone'], list(form.fields))
 
+
 class SubscriblePostTest(TestCase):
     def setUp(self):
         data = dict(name='Venancio Mota', cpf='15332920784',
                     email='venanciomitidieri@gmail.com', phone='21-983474494')
         self.resp = self.client.post('/inscricao/', data)
+
     def test_post(self):
         """Valid POST should redirect to /inscricao/"""
         self.assertEqual(302, self.resp.status_code)
@@ -75,6 +77,7 @@ class SubscriblePostTest(TestCase):
         self.assertIn('venanciomitidieri@gmail.com', email.body)
         self.assertIn('21-983474494', email.body)
 
+
 class SubscribleInvalidPost(TestCase):
     def setUp(self):
         self.resp = self.client.post('/inscricao/', {})
@@ -102,4 +105,3 @@ class SubscribeSuccessMessage(TestCase):
 
         response = self.client.post('/inscricao/', data, follow=True)
         self.assertContains(response, 'INSCRIÇÃO REALIZADA COM SUCESSO!')
-
